@@ -1,70 +1,133 @@
-# TP – Création et configuration d'une unité d'organisation avec application des GPO
+# TP — Active Directory : création d'une unité d'organisation et application de GPO
+
+![Windows Server](https://img.shields.io/badge/Windows-Server-0078D4?logo=windows&logoColor=white)
+![Active Directory](https://img.shields.io/badge/Active%20Directory-Domaine-0078D4)
+![GPO](https://img.shields.io/badge/Group%20Policy-Administration-0078D4)
 
 ## Présentation
 
-le TP porte sur la création et la configuration d'unités d'organisation (UO) dans
-Active Directory, la gestion de comptes utilisateurs, la configuration des autorisations
-d'un dossier partagé et l'application de stratégies de groupe (GPO) dans l'environnement
-de laboratoire LabTech.
+Ce projet pédagogique porte sur l'administration d'Active Directory dans un environnement Windows Server fourni par LabTech.
 
-## Objectifs du TP
+Il couvre :
 
-- Créer une UO « Utilisateurs » et y ajouter les comptes demandés.
-- Organiser les comptes dans les UO prévues par le TP.
-- Configurer les autorisations de partage et de sécurité du dossier `fondecran`.
-- Créer et lier des stratégies de groupe.
-- Configurer le fond d'écran des utilisateurs .
-- Vérifier le résultat en ouvrant des sessions avec les comptes utilisateurs.
+- la création d'unités d'organisation (UO) ;
+- la création et l'organisation de comptes utilisateurs ;
+- la configuration d'un dossier partagé et de ses autorisations ;
+- la création et le rattachement de stratégies de groupe (GPO) ;
+- la vérification des paramètres sur des postes clients Windows 10.
 
-## Environnement et outils 
+## Objectifs
 
-- Windows Server
-- Active Directory Users and Computers
-- Group Policy Management
-- GPO (Group Policy Objects)
-- Postes clients Windows 10
-- Environnement de laboratoire LabTech
+- Créer une UO **Utilisateurs** et organiser les comptes concernés.
+- Créer une UO **Administrateurs** pour structurer les comptes administratifs.
+- Configurer les autorisations de partage et de sécurité du dossier `C:\fondecran`.
+- Configurer le fond d'écran commun des utilisateurs.
+- Désactiver Active Desktop afin d'assurer l'application du fond d'écran configuré.
+- Lier les stratégies aux UO appropriées et vérifier leur application lors des connexions utilisateur.
 
-## Travail réalisé
+## Environnement technique
 
-### 1. Unités d'organisation et comptes
+| Élément | Technologie utilisée |
+|---|---|
+| Serveur | Windows Server |
+| Annuaire | Active Directory |
+| Gestion des utilisateurs | Active Directory Users and Computers |
+| Gestion des stratégies | Group Policy Management |
+| Postes clients | Windows 10 |
+| Laboratoire | LabTech |
 
-Le TP présente une organisation Active Directory avec les unités « Utilisateurs » et
-« Administrateurs », puis la création de plusieurs comptes utilisateurs.
+## Travaux réalisés
 
-### 2. Dossier partagé et autorisations
+### 1. Création des unités d'organisation
 
-Le dossier `C:\fondecran` est utilisé pour stocker les images de fond d'écran.
-Le rapport montre la configuration des autorisations de partage ainsi que les
-autorisations de sécurité du dossier.
+La structure Active Directory comprend notamment les UO suivantes :
 
-### 3. Stratégies de groupe
+```text
+Domaine
+├── Utilisateurs
+└── Administrateurs
+```
 
-Le rapport illustre la configuration de stratégies de groupe, notamment :
-- le paramètre **Desktop Wallpaper** ;
-- le paramètre **Disable Active Desktop**.
+Les comptes utilisateurs sont créés dans l'UO **Utilisateurs** afin de permettre l'application centralisée des stratégies du domaine.
 
-Les captures montrent le rattachement des stratégies aux unités d'organisation et
-des essais de connexion sur les postes clients.
+### 2. Gestion des comptes utilisateurs
 
+Les comptes demandés dans le TP sont créés dans Active Directory, puis placés dans les UO prévues.
 
-## Documentation
+Les paramètres suivants sont vérifiés :
 
-Le rapport PDF original est disponible ici :
-[`documentation/rapport-TP6-original.pdf`](documentation/rapport-TP6-original.pdf)
+- nom d'utilisateur ;
+- appartenance au domaine ;
+- emplacement dans l'UO ;
+- mot de passe initial ;
+- possibilité de connexion sur un poste client.
+
+### 3. Configuration du dossier partagé
+
+Le dossier suivant est utilisé pour stocker les images du fond d'écran :
+
+```text
+C:\fondecran
+```
+
+Deux niveaux d'autorisation sont configurés :
+
+- les autorisations de partage ;
+- les autorisations de sécurité NTFS.
+
+Les permissions sont limitées aux besoins des utilisateurs afin d'autoriser la lecture des images tout en empêchant les modifications non souhaitées.
+
+### 4. Création et liaison des GPO
+
+Les paramètres suivants sont configurés dans Group Policy Management :
+
+| Paramètre | Usage |
+|---|---|
+| Desktop Wallpaper | Définit le chemin de l'image de fond d'écran utilisée par les utilisateurs |
+| Disable Active Desktop | Désactive Active Desktop pour permettre l'application du fond d'écran choisi |
+
+Les GPO sont liées aux UO concernées afin que les paramètres s'appliquent uniquement aux comptes utilisateurs concernés.
+
+### 5. Vérification sur les postes clients
+
+La mise en œuvre est vérifiée depuis les postes Windows 10 :
+
+1. connexion avec un compte utilisateur du domaine ;
+2. ouverture d'une invite de commandes ;
+3. actualisation des stratégies avec `gpupdate /force` ;
+4. ouverture de la session de groupe avec `gpresult /r` ;
+5. vérification de l'application des GPO ;
+6. contrôle visuel du fond d'écran sur le poste client.
+
+## Résultats attendus
+
+- Les comptes utilisateurs sont correctement placés dans l'UO prévue.
+- Les utilisateurs peuvent accéder au dossier partagé en lecture.
+- Les modifications non autorisées du dossier partagé sont empêchées.
+- Les GPO liées à l'UO des utilisateurs sont appliquées lors de l'ouverture de session.
+- Le fond d'écran configuré s'affiche sur les postes concernés.
+- Active Desktop est désactivé pour les utilisateurs concernés.
 
 ## Compétences travaillées
 
 - Administration de Windows Server
 - Gestion d'Active Directory et des unités d'organisation
 - Création et organisation de comptes utilisateurs
-- Configuration des permissions de partage et de sécurité
-- Gestion et application des stratégies de groupe (GPO)
-- Vérification des paramètres sur des postes clients
+- Configuration des autorisations de partage
+- Configuration des autorisations de sécurité NTFS
+- Création, liaison et dépannage de GPO
+- Vérification des stratégies sur les postes clients
 
+## Documentation
+
+Le rapport PDF original est disponible dans le dépôt :
+
+- [`documentation/rapport-TP6-original.pdf`](documentation/rapport-TP6-original.pdf)
+
+## Auteur
+
+Projet réalisé dans le cadre d'un TP d'administration Active Directory en environnement de laboratoire.
 
 **Apprendre • Construire • Sécuriser • Progresser**
 
-
-
-> Projet pédagogique réalisé en environnement de laboratoire.
+> Projet pédagogique réalisé en environnement de laboratoire LabTech.
