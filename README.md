@@ -6,7 +6,7 @@
 
 ## Présentation
 
-Ce projet pédagogique porte sur l'administration d'Active Directory dans un environnement Windows Server fourni par LabTech.
+Ce projet pédagogique porte sur l'administration d'Active Directory dans un environnement Windows Server .
 
 Il couvre :
 
