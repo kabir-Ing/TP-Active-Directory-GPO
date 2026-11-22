@@ -122,7 +122,7 @@ La mise en œuvre est vérifiée depuis les postes Windows 10 :
 
 Le rapport PDF original est disponible dans le dépôt :
 
-- [`documentation/rapport-TP6-original.pdf`](rapport-TP.pdf)
+- [`documentation/rapport-TP-original.pdf`](rapport-TP.pdf)
 
 ## Auteur
 
